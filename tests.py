@@ -12,7 +12,7 @@ class TestPygressBar(unittest.TestCase):
         self.assertEqual("[{0}]".format(' ' * total,), bar.progress_bar)
         #print("Result for 0%: " + bar.progress_bar)
 
-    def test_50_precent_bar(self):
+    def test_50_percent_bar(self):
         """Tests the default 50 percent progress bar"""
         total = 20
         bar = SimpleProgressBar()
@@ -22,7 +22,7 @@ class TestPygressBar(unittest.TestCase):
                                             bar.progress_bar)
         #print("Result for 50%: " + bar.progress_bar)
 
-    def test_100_precent_bar(self):
+    def test_100_percent_bar(self):
         """Tests the default 100 percent progress bar"""
         total = 20
         bar = SimpleProgressBar()
@@ -31,7 +31,7 @@ class TestPygressBar(unittest.TestCase):
                                             bar.progress_bar)
         #print("Result for 100%: " + bar.progress_bar)
 
-    def test_complete_query_precent_bar(self):
+    def test_complete_query_percent_bar(self):
         """Tests the query of complete or not complete"""
         bar = SimpleProgressBar()
         bar.increase(100)
@@ -41,7 +41,7 @@ class TestPygressBar(unittest.TestCase):
         bar.increase(99)
         self.assertFalse(bar.completed())
 
-    def test_incr_10_precent_bar(self):
+    def test_incr_10_percent_bar(self):
         """Tests the default bar one by one"""
         bar = SimpleProgressBar()
         incr_factor = 1
