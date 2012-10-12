@@ -1,6 +1,9 @@
 import sys
 import abc
 
+if sys.hexversion < 0x020700f0:  # hex number for 2.7.0 final release
+    sys.exit("Python 2.7.0 or newer is required to run this program.")
+
 
 class PygressBar(object):
     """Progress bar abstract base class"""
