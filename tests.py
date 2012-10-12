@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from pygressbar import SimpleProgressBar, CustomProgressBar
@@ -117,6 +118,16 @@ class TestPygressBar(unittest.TestCase):
                                                     bar.progress_bar)
 
         #print("Result for custom 50%: " + bar.progress_bar)
+
+    def test_show_animation(self):
+        """Doesn't test nothing, only shows the animation to the user"""
+        bar = SimpleProgressBar()
+        print("")
+        bar.show_progress_bar()
+        while(not bar.completed()):
+            time.sleep(0.1)
+            bar.increase(5)
+            bar.show_progress_bar()
 
 if __name__ == '__main__':
     unittest.main()
