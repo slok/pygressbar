@@ -9,6 +9,25 @@ class PygressBar(object):
 
     def __init__(self, length, filled_repr, empty_repr, left_limit, right_limit,
                  start, head_repr, format):
+        """Constructor of the abstract base class
+
+        :param length: The length of the bar (without limits)
+        :type length: int
+        :param filled_repr: This will be represent one filled space
+        :type filled_repr: string
+        :param empty_repr: This will be represent one empty space
+        :type empty_repr: string
+        :param left_limit: The limit representation of the left side
+        :type left_limit: string
+        :param right_limit: The limit representation of the right side
+        :type right_limit: string
+        :param start: The point the progress bar progress will start
+        :type start: int
+        :param head_repr: The representation space of the head (Coul be None)
+        :type head_repr: string
+        :param format: The format of the bar (By default there is one)
+        :type format: string
+        """
         self._length = length
         self._filled_repr = filled_repr
         self._empty_repr = empty_repr
@@ -28,6 +47,9 @@ class PygressBar(object):
 
     @abc.abstractmethod
     def make_progress_bar(self):
+        """Creates the progress bar based on the object information and stores
+        the bar in the object
+        """
 
         # Create the length of the bar (0 to 100)
         # TODO: Custom scale, not always 0-100
@@ -55,14 +77,18 @@ class PygressBar(object):
         self._progress_bar = repr_format_str.format(head, '')
 
     def increase(self, incr):
+        """Increases by a number the progress bar"""
         self._progress += incr
         self.make_progress_bar()  # Upate
 
     def completed(self):
+        """Returns true if the progress has finished"""
         #TODO: Scale
         return self._progress >= 100
 
     def show_progress_bar(self):
+        """Prints in the terminal the progress bar. valid for animation"""
+        #TODO: Check is TTY
         sys.stderr.write(self.progress_bar + '\r')
 
     def __str__(self):
