@@ -1,3 +1,4 @@
+import sys
 import abc
 
 
@@ -60,6 +61,9 @@ class PygressBar(object):
     def completed(self):
         #TODO: Scale
         return self._progress >= 100
+
+    def show_progress_bar(self):
+        sys.stderr.write(self.progress_bar + '\r')
 
     def __str__(self):
         return self.progress_bar
