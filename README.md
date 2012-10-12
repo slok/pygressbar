@@ -7,17 +7,22 @@ Description
 PygressBar is a progressbar utility for our command line tools, 
 scripts... This bar will be customizable and extensible
 
+Requirements
+------------
+* Python 2.7
+
 TODO
 ----
-* Progress bar
+* <strike>Progress bar</strike>
 * Percentage
-* Customizable bar
-* Animation bar
+* <strike>Customizable bar</strike>
+* <strike>Animation bar</strike>
+* Compatible with python3
 
 Author
 ------
 
-Xabier (slok) Larrakoetxea <slok69 [at] gmail.com>
+Xabier (slok) Larrakoetxea - (slok69 [at] gmail.com)
 
 License
 -------
