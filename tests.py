@@ -1,7 +1,9 @@
 import time
 import unittest
 
-from pygressbar import SimpleProgressBar, CustomProgressBar
+from pygressbar import (SimpleProgressBar,
+                        CustomProgressBar,
+                        SimplePercentProgressBar)
 
 
 class TestPygressBar(unittest.TestCase):
@@ -186,6 +188,17 @@ class TestPygressBar(unittest.TestCase):
                                     empty_char, head)
         self.assertEqual(test_str, bar.progress_bar)
         #print("Result for custom 50%: " + bar.progress_bar)
+
+    def test_simple_bar_with_percent(self):
+        """Tests the default 100 percent progress bar"""
+        total = 20
+        bar = SimplePercentProgressBar()
+        bar.increase(50)
+        self.assertEqual("[{0}>{1}]({2}%)".format('=' * (total // 2 - 1),
+                                                  ' ' * (total // 2),
+                                                  100 * (total // 2) // total),
+                                            bar.progress_bar)
+        #print("Result for 100%: " + bar.progress_bar)
 
     def test_show_animation(self):
         """Doesn't test nothing, only shows the animation to the user"""

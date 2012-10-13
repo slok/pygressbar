@@ -145,6 +145,31 @@ class SimpleProgressBar(PygressBar):
                                                                  empty_length)
 
 
+class SimplePercentProgressBar(PygressBar):
+    def __init__(self):
+        super(SimplePercentProgressBar, self).__init__(length=20,
+                                                       filled_repr='=',
+                                                       empty_repr=' ',
+                                                       left_limit='[',
+                                                       right_limit=']',
+                                                       start=0,
+                                                       head_repr='>',
+                                                       format=None,
+                                                       scale_start=0,
+                                                       scale_end=100)
+
+    def _create_bar_format(self, filled_length, empty_length):
+        scale = self._scale_end - self._scale_start
+        percent = "({0}%)".format(100 * self._progress // scale)
+
+        return self._format.format(left_limit=self._left_limit,
+                                   filled_repr=self._filled_repr,
+                                   filled_length=filled_length,
+                                   empty_repr=self._empty_repr,
+                                   empty_length=empty_length,
+                                   right_limit=self._right_limit) + percent
+
+
 class CustomProgressBar(PygressBar):
     def __init__(self,
                 length,
