@@ -104,7 +104,7 @@ class PygressBar(object):
     def increase(self, incr):
         """Increases by a number the progress bar"""
         self._progress += incr
-        self._make_progress_bar()  # Upate
+        self._make_progress_bar()  # Update
 
     def completed(self):
         """Returns true if the progress has finished"""
