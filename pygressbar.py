@@ -57,10 +57,10 @@ class PygressBar(object):
             self._format = format
         # Initialize progress bar
         self._progress_bar = None
-        self.make_progress_bar()
+        self._make_progress_bar()
 
     @abc.abstractmethod
-    def make_progress_bar(self):
+    def _make_progress_bar(self):
         """Creates the progress bar based on the object information and stores
         the bar in the object
         """
@@ -93,7 +93,7 @@ class PygressBar(object):
     def increase(self, incr):
         """Increases by a number the progress bar"""
         self._progress += incr
-        self.make_progress_bar()  # Upate
+        self._make_progress_bar()  # Upate
 
     def completed(self):
         """Returns true if the progress has finished"""
@@ -130,7 +130,7 @@ class SimpleProgressBar(PygressBar):
                                                scale_end=100)
 
     def make_progress_bar(self):
-        return super(SimpleProgressBar, self).make_progress_bar()
+        return super(SimpleProgressBar, self)._make_progress_bar()
 
 
 class CustomProgressBar(PygressBar):
@@ -156,4 +156,4 @@ class CustomProgressBar(PygressBar):
                                                 scale_end=scale_end)
 
     def make_progress_bar(self):
-        return super(CustomProgressBar, self).make_progress_bar()
+        return super(CustomProgressBar, self)._make_progress_bar()
