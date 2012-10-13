@@ -104,11 +104,21 @@ class PygressBar(object):
     def increase(self, incr):
         """Increases by a number the progress bar"""
         self._progress += incr
+
+        # Check bounds
+        if self._progress > self._scale_end:
+            self._progress = self._scale_end
+
         self._make_progress_bar()  # Update
 
     def decrease(self, incr):
         """decreases by a number the progress bar"""
         self._progress -= incr
+
+        # Check bounds
+        if self._progress < self._scale_start:
+            self._progress = self._scale_start
+
         self._make_progress_bar()
 
     def completed(self):
