@@ -1,5 +1,6 @@
 import time
 import unittest
+import random
 
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
@@ -190,7 +191,7 @@ class TestPygressBar(unittest.TestCase):
         #print("Result for custom 50%: " + bar.progress_bar)
 
     def test_simple_bar_with_percent(self):
-        """Tests the default 100 percent progress bar"""
+        """Tests the simple percent animation bar"""
         total = 20
         bar = SimplePercentProgressBar()
         bar.increase(50)
@@ -200,7 +201,7 @@ class TestPygressBar(unittest.TestCase):
                                             bar.progress_bar)
         #print("Result for 100%: " + bar.progress_bar)
 
-    def test_show_animation(self):
+    def test_show_simple_animation(self):
         """Doesn't test nothing, only shows the animation to the user"""
         bar = SimpleProgressBar()
         print("")
@@ -211,7 +212,7 @@ class TestPygressBar(unittest.TestCase):
             bar.show_progress_bar()
         print("")
 
-    def test_show_animation2(self):
+    def test_show_custom_animation(self):
         """Doesn't test nothing, only shows the animation to the user"""
         total = 50
         fill_char = 'x'
@@ -238,5 +239,15 @@ class TestPygressBar(unittest.TestCase):
             bar.show_progress_bar()
         print("")
 
+    def test_show_simple_percent_animation(self):
+        """Doesn't test nothing, only shows the animation to the user"""
+        bar = SimplePercentProgressBar()
+        print("")
+        bar.show_progress_bar()
+        while(not bar.completed()):
+            time.sleep(0.3)
+            bar.increase(random.randint(1, 10))
+            bar.show_progress_bar()
+        print("")
 if __name__ == '__main__':
     unittest.main()
