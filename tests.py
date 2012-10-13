@@ -77,6 +77,20 @@ class TestPygressBar(unittest.TestCase):
             #print("Result for {0}%: {1}".format(total_progress,
             #                                    bar.progress_bar))
 
+    def test_decrease_bar(self):
+        """Tests the decrement of the bar"""
+        total = 20
+        bar = SimpleProgressBar()
+        bar.increase(50)
+        self.assertEqual("[{0}>{1}]".format('=' * (total // 2 - 1),
+                                            ' ' * (total // 2)),
+                                            bar.progress_bar)
+
+        bar.decrease(10)
+        self.assertEqual("[{0}>{1}]".format('=' * (total // 2 - 3),
+                                            ' ' * (total // 2 + 2)),
+                                            bar.progress_bar)
+
     def test_custom_bar(self):
         """Test a custom progress bar"""
         total = 100
