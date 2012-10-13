@@ -17,8 +17,8 @@ class TestPygressBar(unittest.TestCase):
         total = 20
         bar = SimpleProgressBar()
         bar.increase(50)
-        self.assertEqual("[{0}>{1}]".format('=' * (total / 2 - 1),
-                                            ' ' * (total / 2)),
+        self.assertEqual("[{0}>{1}]".format('=' * (total // 2 - 1),
+                                            ' ' * (total // 2)),
                                             bar.progress_bar)
         #print("Result for 50%: " + bar.progress_bar)
 
@@ -51,7 +51,7 @@ class TestPygressBar(unittest.TestCase):
             total_progress = bar.progress + incr_factor
             bar.increase(incr_factor)
 
-            filled = total * total_progress / scale
+            filled = total * total_progress // scale
             empty = total - filled
 
             # Custoize The head
@@ -85,11 +85,11 @@ class TestPygressBar(unittest.TestCase):
                                 scale_start=scale_start,
                                 scale_end=scale_end)
 
-        bar.increase((scale_end - scale_start) / 2)
+        bar.increase((scale_end - scale_start) // 2)
         self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
-                                                fill_char * (total / 2 - 1),
+                                                fill_char * (total // 2 - 1),
                                                 head,
-                                                empty_char * (total / 2),
+                                                empty_char * (total // 2),
                                                     right_limit),
                                                     bar.progress_bar)
 
@@ -117,11 +117,11 @@ class TestPygressBar(unittest.TestCase):
                                 scale_end=scale_end)
 
         head = fill_char if not head else head
-        bar.increase((scale_end - scale_start) / 2)
+        bar.increase((scale_end - scale_start) // 2)
         self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
-                                                fill_char * (total / 2 - 1),
+                                                fill_char * (total // 2 - 1),
                                                 head,
-                                                empty_char * (total / 2),
+                                                empty_char * (total // 2),
                                                     right_limit),
                                                     bar.progress_bar)
 
@@ -149,11 +149,11 @@ class TestPygressBar(unittest.TestCase):
                                 scale_end=scale_end)
 
         head = fill_char if not head else head
-        bar.increase((scale_end - scale_start) / 2)
+        bar.increase((scale_end - scale_start) // 2)
         self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
-                                                fill_char * (total / 2 - 1),
+                                                fill_char * (total // 2 - 1),
                                                 head,
-                                                empty_char * (total / 2),
+                                                empty_char * (total // 2),
                                                     right_limit),
                                                     bar.progress_bar)
 

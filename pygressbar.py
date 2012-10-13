@@ -67,7 +67,7 @@ class PygressBar(object):
 
         # Create the length of the bar (0 to 100)
         scale = self._scale_end - self._scale_start
-        filled_length = (self._length * self._progress / scale)
+        filled_length = (self._length * self._progress // scale)
 
         # Get the head char. This depends on the progress of the bar
         # If the filled lenght is 0 (0 chars) then is no head nor body
