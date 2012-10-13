@@ -16,6 +16,10 @@ scripts... Some of features:
 * Terminal bar animation compatible (wget style)
 * Python 3 compatible
 
+
+![Pygressbar in action](https://raw.github.com/gist/3885420/c17da8949fcb6192cf5c656ea8703cc3d487460a/pygress.png "Pygressbar in action")  
+
+
 Requirements
 ------------
 * Python >=2.7 or Python 3
