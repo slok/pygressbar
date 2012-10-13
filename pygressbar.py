@@ -160,7 +160,9 @@ class SimplePercentProgressBar(PygressBar):
 
     def _create_bar_format(self, filled_length, empty_length):
         scale = self._scale_end - self._scale_start
-        percent = "({0}%)".format(100 * self._progress // scale)
+        percent = 100 * self._progress // scale
+        percent = 100 if percent > 100 else percent  # Not greater than 100
+        percent = "({0}%)".format(percent)
 
         return self._format.format(left_limit=self._left_limit,
                                    filled_repr=self._filled_repr,
