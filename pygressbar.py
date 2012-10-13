@@ -11,7 +11,7 @@ class PygressBar(object):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, length, filled_repr, empty_repr, left_limit, right_limit,
-                 start, head_repr, format):
+                 start, head_repr, format, scale_start, scale_end):
         """Constructor of the abstract base class
 
         :param length: The length of the bar (without limits)
@@ -30,6 +30,10 @@ class PygressBar(object):
         :type head_repr: string
         :param format: The format of the bar (By default there is one)
         :type format: string
+        :param scale_start: The scale number where starts
+        :type scale_start: int
+        :param scale_end: The scale number where ends
+        :type scale_end: int
         """
         self._length = length
         self._filled_repr = filled_repr
@@ -39,6 +43,13 @@ class PygressBar(object):
         self._head_repr = head_repr
         self._start = start
         self._progress = self._start
+
+        #Check the scale
+        if scale_start >= scale_end:
+            raise ValueError("scale start must be less than scale end")
+
+        self._scale_start = scale_start
+        self._scale_end = scale_end
         if not format:
             self._format = "{left_limit}{{:{filled_repr}>{filled_length}}}" +\
                             "{{:{empty_repr}<{empty_length}}}{right_limit}"
@@ -55,8 +66,8 @@ class PygressBar(object):
         """
 
         # Create the length of the bar (0 to 100)
-        # TODO: Custom scale, not always 0-100
-        filled_length = (self._length * self._progress / 100)
+        scale = self._scale_end - self._scale_start
+        filled_length = (self._length * self._progress / scale)
 
         # Get the head char. This depends on the progress of the bar
         # If the filled lenght is 0 (0 chars) then is no head nor body
@@ -86,8 +97,7 @@ class PygressBar(object):
 
     def completed(self):
         """Returns true if the progress has finished"""
-        #TODO: Scale
-        return self._progress >= 100
+        return self._progress >= self._scale_end
 
     def show_progress_bar(self):
         """Prints in the terminal the progress bar. valid for animation"""
@@ -115,7 +125,9 @@ class SimpleProgressBar(PygressBar):
                                                right_limit=']',
                                                start=0,
                                                head_repr='>',
-                                               format=None)
+                                               format=None,
+                                               scale_start=0,
+                                               scale_end=100)
 
     def make_progress_bar(self):
         return super(SimpleProgressBar, self).make_progress_bar()
@@ -129,15 +141,19 @@ class CustomProgressBar(PygressBar):
                 left_limit,
                 right_limit,
                 start,
-                head_repr):
+                head_repr,
+                scale_start,
+                scale_end):
         super(CustomProgressBar, self).__init__(length=length,
-                                                       filled_repr=filled_repr,
-                                                       empty_repr=empty_repr,
-                                                       left_limit=left_limit,
-                                                       right_limit=right_limit,
-                                                       start=start,
-                                                       head_repr=head_repr,
-                                                       format=None)
+                                                filled_repr=filled_repr,
+                                                empty_repr=empty_repr,
+                                                left_limit=left_limit,
+                                                right_limit=right_limit,
+                                                start=start,
+                                                head_repr=head_repr,
+                                                format=None,
+                                                scale_start=scale_start,
+                                                scale_end=scale_end)
 
     def make_progress_bar(self):
         return super(CustomProgressBar, self).make_progress_bar()

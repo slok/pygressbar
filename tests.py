@@ -73,15 +73,19 @@ class TestPygressBar(unittest.TestCase):
         head = '|'
         left_limit = '('
         right_limit = ')'
+        scale_start = 0
+        scale_end = 100
         bar = CustomProgressBar(length=total,
                                 left_limit=left_limit,
                                 right_limit=right_limit,
                                 head_repr=head,
                                 empty_repr=empty_char,
                                 filled_repr=fill_char,
-                                start=0)
+                                start=0,
+                                scale_start=scale_start,
+                                scale_end=scale_end)
 
-        bar.increase(50)
+        bar.increase((scale_end - scale_start) / 2)
         self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
                                                 fill_char * (total / 2 - 1),
                                                 head,
@@ -100,16 +104,52 @@ class TestPygressBar(unittest.TestCase):
         head = None
         left_limit = '['
         right_limit = ']'
+        scale_start = 0
+        scale_end = 100
         bar = CustomProgressBar(length=total,
                                 left_limit=left_limit,
                                 right_limit=right_limit,
                                 head_repr=head,
                                 empty_repr=empty_char,
                                 filled_repr=fill_char,
-                                start=0)
+                                start=0,
+                                scale_start=scale_start,
+                                scale_end=scale_end)
 
         head = fill_char if not head else head
-        bar.increase(50)
+        bar.increase((scale_end - scale_start) / 2)
+        self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
+                                                fill_char * (total / 2 - 1),
+                                                head,
+                                                empty_char * (total / 2),
+                                                    right_limit),
+                                                    bar.progress_bar)
+
+        #print("Result for custom 50%: " + bar.progress_bar)
+
+    def test_custom_bar_with_scale(self):
+        """Test a custom progress bar with a custom scale"""
+
+        total = 50
+        fill_char = '#'
+        empty_char = ' '
+        head = '>'
+        left_limit = '['
+        right_limit = ']'
+        scale_start = 415
+        scale_end = 431
+        bar = CustomProgressBar(length=total,
+                                left_limit=left_limit,
+                                right_limit=right_limit,
+                                head_repr=head,
+                                empty_repr=empty_char,
+                                filled_repr=fill_char,
+                                start=0,
+                                scale_start=scale_start,
+                                scale_end=scale_end)
+
+        head = fill_char if not head else head
+        bar.increase((scale_end - scale_start) / 2)
         self.assertEqual("{0}{1}{2}{3}{4}".format(left_limit,
                                                 fill_char * (total / 2 - 1),
                                                 head,
