@@ -127,8 +127,10 @@ class PygressBar(object):
 
     def show_progress_bar(self):
         """Prints in the terminal the progress bar. valid for animation"""
-        #TODO: Check is TTY
-        sys.stderr.write(self.progress_bar + '\r')
+        if sys.stderr.isatty():
+            sys.stderr.write(self.progress_bar + '\r')
+        else:
+            print(self.progress_bar + "\n")
 
     def __str__(self):
         return self.progress_bar
