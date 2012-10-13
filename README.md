@@ -1,6 +1,8 @@
 PygressBar
 ==========
 
+[![Build Status](https://secure.travis-ci.org/slok/pygressbar.png)](http://travis-ci.org/slok/pygressbar)
+
 Description
 -----------
 
@@ -13,10 +15,8 @@ Requirements
 
 TODO
 ----
-* <strike>Progress bar</strike>
-* Percentage
-* <strike>Customizable bar</strike>
-* <strike>Animation bar</strike>
+
+* Percent
 * Compatible with python3
 
 Author
