@@ -10,7 +10,8 @@ except:
 
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
-                        SimplePercentProgressBar)
+                        SimplePercentProgressBar,
+                        SimpleAnimatedProgressBar)
 
 
 def show_simple_animation():
@@ -54,6 +55,23 @@ def show_simple_percent_animation():
         time.sleep(0.3)
         bar.increase(random.randint(1, 10))
         bar.show_progress_bar()
+
+
+def show_head_animation():
+
+    bar = SimpleAnimatedProgressBar(speed=1000)
+    bar.hide_cursor()
+    bar.show_progress_bar()
+    bar.increase(50)
+
+    while(not bar.completed()):
+
+        if random.randint(1, 500000) == random.randint(1, 500000):
+            bar.increase(50)
+
+        bar.show_progress_bar()
+
+    bar.show_cursor()
 
 
 def show_up_down_animation():
@@ -131,6 +149,10 @@ if __name__ == "__main__":
 
     print("Custom bar: ")
     show_custom_animation()
+    print("")
+
+    print("Animated head bar: ")
+    show_head_animation()
     print("")
 
     print("Simple with percent bar: ")

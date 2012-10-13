@@ -85,18 +85,18 @@ class PygressBar(object):
         scale = self._scale_end - self._scale_start
         filled_length = (self._length * self._progress // scale)
 
+        # The rest of the bar
+        empty_length = self._length - filled_length
+
+        #create the format
+        repr_format_str = self._create_bar_format(filled_length, empty_length)
+
         # Get the head char. This depends on the progress of the bar
         # If the filled lenght is 0 (0 chars) then is no head nor body
         if not filled_length:
             head = ''
         else:  # If there is no head, then is the fill char representation
             head = self._filled_repr if not self._head_repr else self._head_repr
-
-        # The rest of the bar
-        empty_length = self._length - filled_length
-
-        #create the format
-        repr_format_str = self._create_bar_format(filled_length, empty_length)
 
         # Create the progress bar (right head char is always blank)
         self._progress_bar = repr_format_str.format(head, '')
@@ -128,9 +128,9 @@ class PygressBar(object):
     def show_progress_bar(self):
         """Prints in the terminal the progress bar. valid for animation"""
         if sys.stderr.isatty():
-            sys.stderr.write(self.progress_bar + '\r')
+            sys.stderr.write(self._progress_bar + '\r')
         else:
-            print(self.progress_bar + "\n")
+            print(self._progress_bar + "\n")
 
     def hide_cursor(self):
         print("\x1b[?25l")
@@ -193,6 +193,80 @@ class SimplePercentProgressBar(PygressBar):
                                    empty_repr=self._empty_repr,
                                    empty_length=empty_length,
                                    right_limit=self._right_limit) + percent
+
+
+class SimpleAnimatedProgressBar(PygressBar):
+    """Simple progress bar with the head animated"""
+
+    def __init__(self, animation=('|', '/', '-', '\\'), speed=50):
+        """Constructor
+
+        :param animation: The head animation sequence
+        :type animation: tuple
+        :param speed: The speed of the animation head (0-2000)
+        :type speed: int
+        """
+
+        self._animation = animation
+        self._animation_state = 0
+        head = animation[0]
+
+        max_speed = 2000
+        if speed < 0 or speed > max_speed:
+            raise ValueError("Speed needs to e between 0(slow) and 2000(fast)")
+
+        # Reverse number
+        self._speed_control = max_speed - speed
+        self._speed_status = 0
+
+        super(SimpleAnimatedProgressBar, self).__init__(length=20,
+                                                       filled_repr='=',
+                                                       empty_repr=' ',
+                                                       left_limit='[',
+                                                       right_limit=']',
+                                                       start=0,
+                                                       head_repr=head,
+                                                       format=None,
+                                                       scale_start=0,
+                                                       scale_end=100)
+
+    def _create_bar_format(self, filled_length, empty_length):
+        # To control the speed we need to check if we have to change the head
+        # If we have reach to the spped control, means that we have printed
+        # the needed times to change the head (see below show_progress_bar)
+        if self._speed_status == self._speed_control:
+
+            #Adjust next state of the animation
+            if self._animation_state == len(self._animation) - 1:
+                self._animation_state = 0
+            else:
+                self._animation_state += 1
+            #Update head
+            self._head_repr = self._animation[self._animation_state]
+
+        return super(SimpleAnimatedProgressBar, self)._create_bar_format(
+                                                                filled_length,
+                                                                empty_length)
+
+    def _increment_speed_status(self):
+        # If we hace reach to the needed printed times then update the progress
+        # bar with the new head
+        if self._speed_status >= self._speed_control:
+            # First update the bar with the new head and then reload
+            # the speed counter
+            self._make_progress_bar()
+            self._speed_status = 0
+        else:
+            self._speed_status += 1
+
+    @property
+    def progress_bar(self):
+        self._increment_speed_status()
+        return super(SimpleAnimatedProgressBar, self).progress_bar
+
+    def show_progress_bar(self):
+        self._increment_speed_status()
+        return super(SimpleAnimatedProgressBar, self).show_progress_bar()
 
 
 class CustomProgressBar(PygressBar):

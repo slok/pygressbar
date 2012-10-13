@@ -2,7 +2,8 @@ import unittest
 
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
-                        SimplePercentProgressBar)
+                        SimplePercentProgressBar,
+                        SimpleAnimatedProgressBar)
 
 
 class TestPygressBar(unittest.TestCase):
@@ -212,6 +213,29 @@ class TestPygressBar(unittest.TestCase):
                                                   100 * (total // 2) // total),
                                             bar.progress_bar)
         #print("Result for 100%: " + bar.progress_bar)
+
+    def test_animated_head_bar(self):
+        """Tests the animated head bar"""
+        total = 20
+        bar = SimpleAnimatedProgressBar(speed=1990)
+        times = 10
+        bar.increase(100)
+
+        self.assertEqual("[{0}|]".format('=' * (total - 1)), bar.progress_bar)
+
+        for i in range(0, times):
+            bar.progress_bar
+
+        self.assertEqual("[{0}/]".format('=' * (total - 1)), bar.progress_bar)
+
+        for i in range(0, times):
+            bar.progress_bar
+        self.assertEqual("[{0}-]".format('=' * (total - 1)), bar.progress_bar)
+
+        for i in range(0, times):
+            bar.progress_bar
+
+        self.assertEqual("[{0}\\]".format('=' * (total - 1)), bar.progress_bar)
 
 if __name__ == '__main__':
     unittest.main()
