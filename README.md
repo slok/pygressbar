@@ -70,6 +70,22 @@ has the numeric percent progress. Example
     [===========>        ](63%)
 
 
+###Simple Animated bar###
+
+The animated bar animates the head. The animation is created with a tuple. 
+By default will be the classic spinner: `|`, `/`, `-`, `\`. Also it has the 
+attribute `speed` that is the speed between 0 (slowest) and 2000 (the highest)
+the spinner speed animation is something tricky and depends on the printed (or
+getted times) so it's recommended to test the best speed for your needs. Example
+
+    [=========|          ]
+    [=========/          ]
+    [=========-          ]
+    [=========\          ]
+    [=========|          ]
+
+
+
 Usage
 -----
 
