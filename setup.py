@@ -1,6 +1,6 @@
 try:
     from setuptools import setup, find_packages
-    kw = {'packages': find_packages(exclude=['tests']),
+    kw = {'packages': find_packages(exclude=['tests', 'examples']),
           'test_suite': 'tests',
           'zip_safe': False}
 except ImportError:

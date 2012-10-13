@@ -1,6 +1,4 @@
-import time
 import unittest
-import random
 
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
@@ -215,53 +213,5 @@ class TestPygressBar(unittest.TestCase):
                                             bar.progress_bar)
         #print("Result for 100%: " + bar.progress_bar)
 
-    def test_show_simple_animation(self):
-        """Doesn't test nothing, only shows the animation to the user"""
-        bar = SimpleProgressBar()
-        print("")
-        bar.show_progress_bar()
-        while(not bar.completed()):
-            time.sleep(0.1)
-            bar.increase(5)
-            bar.show_progress_bar()
-        print("")
-
-    def test_show_custom_animation(self):
-        """Doesn't test nothing, only shows the animation to the user"""
-        total = 50
-        fill_char = 'x'
-        empty_char = '.'
-        head = None
-        left_limit = '['
-        right_limit = ']'
-        scale_start = 0
-        scale_end = 1000
-        bar = CustomProgressBar(length=total,
-                                left_limit=left_limit,
-                                right_limit=right_limit,
-                                head_repr=head,
-                                empty_repr=empty_char,
-                                filled_repr=fill_char,
-                                start=0,
-                                scale_start=scale_start,
-                                scale_end=scale_end)
-        print("")
-        bar.show_progress_bar()
-        while(not bar.completed()):
-            time.sleep(0.03)
-            bar.increase(10)
-            bar.show_progress_bar()
-        print("")
-
-    def test_show_simple_percent_animation(self):
-        """Doesn't test nothing, only shows the animation to the user"""
-        bar = SimplePercentProgressBar()
-        print("")
-        bar.show_progress_bar()
-        while(not bar.completed()):
-            time.sleep(0.3)
-            bar.increase(random.randint(1, 10))
-            bar.show_progress_bar()
-        print("")
 if __name__ == '__main__':
     unittest.main()
