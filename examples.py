@@ -11,7 +11,8 @@ except:
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
                         SimplePercentProgressBar,
-                        SimpleAnimatedProgressBar)
+                        SimpleAnimatedProgressBar,
+                        SimpleColorBar)
 
 
 def show_simple_animation():
@@ -99,6 +100,15 @@ def show_up_down_animation():
             bar.show_progress_bar()
 
 
+def show_color_animation():
+    bar = SimpleColorBar()
+    bar.show_progress_bar()
+    while(not bar.completed()):
+        time.sleep(0.2)
+        bar.increase(1)
+        bar.show_progress_bar()
+
+
 def download_file():
     big_file_url = "https://gist.github.com/raw/3885120/803c00" +\
                    "b809c7a9c4a44626320374d18933b63b48/big.txt"
@@ -161,6 +171,10 @@ if __name__ == "__main__":
 
     print("Increase and decrease bar: ")
     show_up_down_animation()
+    print("")
+
+    print("Color bar: ")
+    show_color_animation()
     print("")
 
     download_file()
