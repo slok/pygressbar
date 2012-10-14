@@ -5,6 +5,18 @@ if sys.hexversion < 0x020700f0:  # hex number for 2.7.0 final release
     sys.exit("Python 2.7.0 or newer is required to run this program.")
 
 
+# Colors (http://en.wikipedia.org/wiki/ANSI_escape_code#Colors)
+
+COL_RESET = "\x1b[0m"
+RED = "\x1b[31m"
+GREEN = "\x1b[32m"
+YELLOW = "\x1b[33m"
+BLUE = "\x1b[34m"
+MAGENTA = "\x1b[35m"
+CYAN = "\x1b[36m"
+WHITE = "\x1b[37m"
+
+
 class PygressBar(object):
     """Progress bar abstract base class"""
 
@@ -267,6 +279,65 @@ class SimpleAnimatedProgressBar(PygressBar):
     def show_progress_bar(self):
         self._increment_speed_status()
         return super(SimpleAnimatedProgressBar, self).show_progress_bar()
+
+
+class SimpleColorBar(PygressBar):
+    def __init__(self,
+                 left_limit_clr=GREEN,
+                 right_limit_clr=GREEN,
+                 head_clr=RED,
+                 filled_clr=BLUE,
+                 empty_clr=MAGENTA):
+        """Constructor
+
+        :param left_limit_clr: Color of the left limit
+        :type left_limit_clr: string (ANSI terminal color)
+        :param right_limit_clr: Color of the right limit
+        :type right_limit_clr: string (ANSI terminal color)
+        :param head_clr: Head character color
+        :type head_clr: string (ANSI terminal color)
+        :param filled_clr: Filled character color
+        :type filled_clr: string (ANSI terminal color)
+        :param empty_clr: Empty character color
+        :type empty_clr: string (ANSI terminal color)
+        """
+
+        self._left_limit_clr = left_limit_clr
+        self._right_limit_clr = right_limit_clr
+        self._head_clr = head_clr
+        self._filled_clr = filled_clr
+        self._empty_clr = empty_clr
+
+        # Create the new color format
+
+        format = left_limit_clr + "{left_limit}" + COL_RESET +\
+                 filled_clr + "{{:{filled_repr}>{filled_length}}}" +\
+                                                         COL_RESET +\
+                 empty_clr + "{{:{empty_repr}<{empty_length}}}" +\
+                                                      COL_RESET +\
+                 right_limit_clr + "{right_limit}" + COL_RESET
+
+        # Format the head
+        head = COL_RESET + head_clr + '>'
+
+        super(SimpleColorBar, self).__init__(length=20,
+                                             filled_repr='=',
+                                             empty_repr='.',
+                                             left_limit='[',
+                                             right_limit=']',
+                                             start=0,
+                                             head_repr=head,
+                                             format=format,
+                                             scale_start=0,
+                                             scale_end=100)
+
+    def _create_bar_format(self, filled_length, empty_length):
+        #Fix the head lenght
+        if filled_length > 0:
+            filled_length += len(self._head_clr) + len(COL_RESET) * 1
+
+        return super(SimpleColorBar, self)._create_bar_format(filled_length,
+                                                              empty_length)
 
 
 class CustomProgressBar(PygressBar):
