@@ -144,11 +144,13 @@ class PygressBar(object):
         else:
             print(self._progress_bar + "\n")
 
-    def hide_cursor(self):
-        print("\x1b[?25l")
+    @staticmethod
+    def hide_cursor():
+        sys.stdout.write("\x1b[?25l")
 
-    def show_cursor(self):
-        print("\x1b[?25h")
+    @staticmethod
+    def show_cursor():
+        sys.stdout.write("\x1b[?25h")
 
     def __str__(self):
         return self.progress_bar
