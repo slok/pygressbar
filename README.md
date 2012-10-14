@@ -17,7 +17,7 @@ scripts... Some of features:
 * Python 3 compatible
 
 
-![Pygressbar in action](https://raw.github.com/gist/3885420/c17da8949fcb6192cf5c656ea8703cc3d487460a/pygress.png "Pygressbar in action")  
+![Pygressbar in action](https://raw.github.com/gist/3885420/34bab2c82222a50566fab6e3d76e43fc9c860e7c/pygress.png "Pygressbar in action")   
 
 
 Requirements
@@ -74,15 +74,28 @@ has the numeric percent progress. Example
 
 The animated bar animates the head. The animation is created with a tuple. 
 By default will be the classic spinner: `|`, `/`, `-`, `\`. Also it has the 
-attribute `speed` that is the speed between 0 (slowest) and 2000 (the highest)
-the spinner speed animation is something tricky and depends on the printed (or
-getted times) so it's recommended to test the best speed for your needs. Example
+attribute `speed` that is the speed between 0 (slowest) and 2000 (the highest).
+The spinner speed animation is something tricky and depends on the printed (or
+getted) times, so it's recommended to test the best speed for your needs.
+Example:
 
     [=========|          ]
     [=========/          ]
     [=========-          ]
     [=========\          ]
     [=========|          ]
+
+###Simple Color bar###
+
+The simple color bar is the same bar as the simple bar but with colors (ANSI
+terminal colors: http://en.wikipedia.org/wiki/ANSI_escape_code#Colors). To 
+customize the colors, each part has a property: `left_limit_clr`, 
+`right_limit_clr`, `head_clr`, `filled_clr`, `empty_clr` Pygressbar comes with
+various colors: `RED`, `BLUE`, `GREEN`, `MAGENTA`, `WHITE`, `COL_RESET`, 
+`YELLOW` and `CYAN` 
+Example:
+
+![Pygressbar in action](https://raw.github.com/gist/3885420/b0b754ada28a3b9bd5ead6e6edb9cec18d402ecc/pygress_color.png"Pygressbar in action")  
 
 
 
