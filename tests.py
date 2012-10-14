@@ -1,9 +1,11 @@
 import unittest
 
+from pygressbar import RED, COL_RESET, BLUE, MAGENTA, GREEN  # Colors
 from pygressbar import (SimpleProgressBar,
                         CustomProgressBar,
                         SimplePercentProgressBar,
-                        SimpleAnimatedProgressBar)
+                        SimpleAnimatedProgressBar,
+                        SimpleColorBar)
 
 
 class TestPygressBar(unittest.TestCase):
@@ -236,6 +238,22 @@ class TestPygressBar(unittest.TestCase):
             bar.progress_bar
 
         self.assertEqual("[{0}\\]".format('=' * (total - 1)), bar.progress_bar)
+
+    def test_50_percent_color_bar(self):
+        """Tests the color 50 percent bar"""
+        total = 20
+        bar = SimpleColorBar()
+        bar.increase(50)
+        format = GREEN + "[" + COL_RESET +\
+                 BLUE + "{0}" + COL_RESET +\
+                 RED + ">" + COL_RESET +\
+                 MAGENTA + "{1}" + COL_RESET +\
+                 GREEN + "]" + COL_RESET
+
+        self.assertEqual(format.format('=' * (total // 2 - 1),
+                                            '.' * (total // 2)),
+                         bar.progress_bar)
+
 
 if __name__ == '__main__':
     unittest.main()
