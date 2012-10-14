@@ -8,6 +8,13 @@ except:
     import urllib.request
 
 
+from pygressbar import (RED,
+                        COL_RESET,
+                        BLUE, MAGENTA,
+                        GREEN,
+                        YELLOW,
+                        CYAN,
+                        WHITE)
 from pygressbar import (PygressBar,
                         SimpleProgressBar,
                         CustomProgressBar,
@@ -107,6 +114,32 @@ def show_color_animation():
         bar.show_progress_bar()
 
 
+def show_different_colors():
+
+    bar = SimpleColorBar(left_limit_clr=GREEN, right_limit_clr=GREEN,
+                         head_clr=WHITE, empty_clr=WHITE, filled_clr=RED)
+    bar.increase(50)
+    bar.show_progress_bar()
+    print("")
+
+    bar = SimpleColorBar()
+    bar.increase(70)
+    bar.show_progress_bar()
+    print("")
+
+    bar = SimpleColorBar(left_limit_clr=CYAN, right_limit_clr=CYAN,
+                         head_clr=MAGENTA, empty_clr=GREEN, filled_clr=YELLOW)
+    bar.increase(80)
+    bar.show_progress_bar()
+    print("")
+
+    bar = SimpleColorBar(left_limit_clr=MAGENTA, right_limit_clr=RED,
+                         head_clr=BLUE, empty_clr=YELLOW, filled_clr=GREEN)
+    bar.increase(30)
+    bar.show_progress_bar()
+    print("")
+
+
 def download_file():
     big_file_url = "https://gist.github.com/raw/3885120/803c00" +\
                    "b809c7a9c4a44626320374d18933b63b48/big.txt"
@@ -176,6 +209,10 @@ if __name__ == "__main__":
 
     print("Color bar: ")
     show_color_animation()
+    print("\n")
+
+    print("Different color bar examples: ")
+    show_different_colors()
     print("\n")
 
     download_file()
