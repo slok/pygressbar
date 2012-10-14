@@ -8,7 +8,8 @@ except:
     import urllib.request
 
 
-from pygressbar import (SimpleProgressBar,
+from pygressbar import (PygressBar,
+                        SimpleProgressBar,
                         CustomProgressBar,
                         SimplePercentProgressBar,
                         SimpleAnimatedProgressBar,
@@ -61,7 +62,6 @@ def show_simple_percent_animation():
 def show_head_animation():
 
     bar = SimpleAnimatedProgressBar(speed=1000)
-    bar.hide_cursor()
     bar.show_progress_bar()
     bar.increase(50)
 
@@ -71,8 +71,6 @@ def show_head_animation():
             bar.increase(50)
 
         bar.show_progress_bar()
-
-    bar.show_cursor()
 
 
 def show_up_down_animation():
@@ -153,29 +151,34 @@ def download_file():
     print("Finished :)")
 
 if __name__ == "__main__":
+
+    PygressBar.hide_cursor()
+
     print("Simple bar: ")
     show_simple_animation()
-    print("")
+    print("\n")
 
     print("Custom bar: ")
     show_custom_animation()
-    print("")
+    print("\n")
 
     print("Animated head bar: ")
     show_head_animation()
-    print("")
+    print("\n")
 
     print("Simple with percent bar: ")
     show_simple_percent_animation()
-    print("")
+    print("\n")
 
     print("Increase and decrease bar: ")
     show_up_down_animation()
-    print("")
+    print("\n")
 
     print("Color bar: ")
     show_color_animation()
-    print("")
+    print("\n")
 
     download_file()
-    print("")
+    print("\n")
+
+    PygressBar.hide_cursor()
