@@ -136,49 +136,50 @@ Example
 
 Download a big txt file (12 MB):
 
-    def download_file():
-        big_file_url = "https://gist.github.com/raw/3885120/803c00" +\
-                       "b809c7a9c4a44626320374d18933b63b48/big.txt"
+```python
+def download_file():
+    big_file_url = "https://gist.github.com/raw/3885120/803c00" +\
+                   "b809c7a9c4a44626320374d18933b63b48/big.txt"
 
-        # Download the file
-        if sys.version_info[0] == 3:
-            f = urllib.request.urlopen(big_file_url)
+    # Download the file
+    if sys.version_info[0] == 3:
+        f = urllib.request.urlopen(big_file_url)
+    else:
+        f = urllib.urlopen(big_file_url)
+
+    # Get the total length of the file
+    scale = int(f.headers["content-length"])
+    chunk_size = 500
+
+    bar = CustomProgressBar(length=50,
+                            left_limit='[',
+                            right_limit=']',
+                            head_repr=None,
+                            empty_repr=' ',
+                            filled_repr='|',
+                            start=0,
+                            scale_start=0,
+                            scale_end=scale)
+
+    print("Downloading a big txt file: ")
+
+    print_flag = 0
+    # Load all the data chunk by chunk
+    while not bar.completed():
+        f.read(chunk_size)
+        bar.increase(chunk_size)
+
+        # Don't print always
+        if print_flag == 100:
+            bar.show_progress_bar()
+            print_flag = 0
         else:
-            f = urllib.urlopen(big_file_url)
+            print_flag += 1
 
-        # Get the total length of the file
-        scale = int(f.headers["content-length"])
-        chunk_size = 500
-
-        bar = CustomProgressBar(length=50,
-                                left_limit='[',
-                                right_limit=']',
-                                head_repr=None,
-                                empty_repr=' ',
-                                filled_repr='|',
-                                start=0,
-                                scale_start=0,
-                                scale_end=scale)
-
-        print("Downloading a big txt file: ")
-
-        print_flag = 0
-        # Load all the data chunk by chunk
-        while not bar.completed():
-            f.read(chunk_size)
-            bar.increase(chunk_size)
-
-            # Don't print always
-            if print_flag == 100:
-                bar.show_progress_bar()
-                print_flag = 0
-            else:
-                print_flag += 1
-
-        bar.show_progress_bar()
-        print("")
-        print("Finished :)")
-
+    bar.show_progress_bar()
+    print("")
+    print("Finished :)")
+```
 
 Author
 ------
