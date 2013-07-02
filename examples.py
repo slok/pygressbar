@@ -217,4 +217,4 @@ if __name__ == "__main__":
     download_file()
     print("\n")
 
-    PygressBar.hide_cursor()
+    PygressBar.show_cursor()
