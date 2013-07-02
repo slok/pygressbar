@@ -141,8 +141,7 @@ def show_different_colors():
 
 
 def download_file():
-    big_file_url = "https://gist.github.com/raw/3885120/803c00" +\
-                   "b809c7a9c4a44626320374d18933b63b48/big.txt"
+    big_file_url = "http://www.python.org/ftp/python/3.3.2/Python-3.3.2.tgz"
 
     # Download the file
     if sys.version_info[0] == 3:
