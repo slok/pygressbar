@@ -17,7 +17,7 @@ scripts... Some of features:
 * Python 3 compatible
 
 
-![Pygressbar in action](https://raw.github.com/gist/3885420/34bab2c82222a50566fab6e3d76e43fc9c860e7c/pygress.png "Pygressbar in action")   
+![Pygressbar in action](https://gist.github.com/slok/3885420/raw/34bab2c82222a50566fab6e3d76e43fc9c860e7c/pygress.png "Pygressbar in action")   
 
 
 Requirements
@@ -95,7 +95,7 @@ various colors: `RED`, `BLUE`, `GREEN`, `MAGENTA`, `WHITE`, `COL_RESET`,
 `YELLOW` and `CYAN` 
 Example:
 
-![Pygressbar in action](https://raw.github.com/gist/3885420/b0b754ada28a3b9bd5ead6e6edb9cec18d402ecc/pygress_color.png"Pygressbar in action")  
+![Pygressbar in action](https://gist.github.com/slok/3885420/raw/b0b754ada28a3b9bd5ead6e6edb9cec18d402ecc/pygress_color.png"Pygressbar in action")  
 
 
 
